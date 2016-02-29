@@ -3,7 +3,7 @@ package com.windlike.quick.model;
 import org.msgpack.annotation.Message;
 
 @Message
-public class Car {
+public class Car{
     private String name;
     
     private int cost;

@@ -1,11 +1,12 @@
 package com.windlike.quick.handler;
 
 import com.windlike.quick.model.Car;
+import com.windlike.quick.model.Person;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-public class CarClientHandler extends ChannelHandlerAdapter{
+public class PersonClientHandler extends ChannelHandlerAdapter{
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -16,20 +17,19 @@ public class CarClientHandler extends ChannelHandlerAdapter{
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         for(int i = 0; i < 10; i++){
-            Car car = new Car("car-" + i, i);
-            ctx.writeAndFlush(car);
+        	Person p = new Person("person-" + i, i);
+            ctx.writeAndFlush(p);
         }
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Car car = (Car) msg;
-        System.out.println("client recv:" + car);
+        Person p = (Person) msg;
+        System.out.println("client recv:" + p);
     }
     
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-//        ctx.close();
     }
-    
+
 }

@@ -16,6 +16,8 @@ import java.io.IOException;
 import com.windlike.quick.decoder.MsgPackDecoder;
 import com.windlike.quick.encoder.MsgPackEncoder;
 import com.windlike.quick.handler.CarClientHandler;
+import com.windlike.quick.handler.PersonClientHandler;
+import com.windlike.quick.marshalling.MarshallingCodeCFactory;
 
 public class SbClient {
 	private String host = "localhost";
@@ -44,12 +46,17 @@ public class SbClient {
 //					ch.pipeline().addLast(new LineBasedFrameDecoder(1024))
 //						.addLast(new TimeClientHandler());
 					//测试msgpack编解码
-				    ch.pipeline()
-				        .addLast("frame-decoder", new LengthFieldBasedFrameDecoder(1024, 0, 2, 0, 2))
-				        .addLast("msgpack-decoder", new MsgPackDecoder())
-				        .addLast("frame-encoder", new LengthFieldPrepender(2))
-                        .addLast("msgpack-encoder", new MsgPackEncoder())
-				        .addLast("client-handler", new CarClientHandler());
+//				    ch.pipeline()
+//				        .addLast("frame-decoder", new LengthFieldBasedFrameDecoder(1024, 0, 2, 0, 2))
+//				        .addLast("msgpack-decoder", new MsgPackDecoder())
+//				        .addLast("frame-encoder", new LengthFieldPrepender(2))
+//                        .addLast("msgpack-encoder", new MsgPackEncoder())
+//				        .addLast("client-handler", new CarClientHandler());
+					//测试marshalling
+					ch.pipeline()
+						.addLast(MarshallingCodeCFactory.buildMarshallingDecoder())
+						.addLast(MarshallingCodeCFactory.buildMarshallingEncoder())
+						.addLast(new PersonClientHandler());
 				        
 				}
 			});

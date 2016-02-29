@@ -12,7 +12,6 @@ public class MsgPackEncoder extends MessageToByteEncoder<Car>{
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Car msg, ByteBuf out) throws Exception {
-        // TODO Auto-generated method stub
         MessagePack msgPack = new MessagePack();
         byte[] bytes = msgPack.write(msg);
         out.writeBytes(bytes);

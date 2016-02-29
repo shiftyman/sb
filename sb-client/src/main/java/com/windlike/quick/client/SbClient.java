@@ -47,7 +47,7 @@ public class SbClient {
 				    ch.pipeline()
 				        .addLast("frame-decoder", new LengthFieldBasedFrameDecoder(1024, 0, 2, 0, 2))
 				        .addLast("msgpack-decoder", new MsgPackDecoder())
-				        .addLast("frame-encoder", new LengthFieldPrepender(2, true))
+				        .addLast("frame-encoder", new LengthFieldPrepender(2))
                         .addLast("msgpack-encoder", new MsgPackEncoder())
 				        .addLast("client-handler", new CarClientHandler());
 				        

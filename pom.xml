@@ -13,23 +13,33 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<netty.groupId>io.netty</netty.groupId>
 		<netty.version>5.0.0.Alpha2</netty.version>
+		<msgpack.version>0.6.12</msgpack.version>
+		<marshalling.version>2.0.0.Beta2</marshalling.version>
 	</properties>
 
 	<dependencies>
-
 		<dependency>
-			<groupId>${netty.groupId}</groupId>
+			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 			<version>${netty.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.msgpack</groupId>
 			<artifactId>msgpack</artifactId>
-			<version>0.6.12</version>
+			<version>${msgpack.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.marshalling</groupId>
+			<artifactId>jboss-marshalling</artifactId>
+			<version>${marshalling.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.marshalling</groupId>
+			<artifactId>jboss-marshalling-serial</artifactId>
+			<version>${marshalling.version}</version>
+		</dependency>
+
 
 
 		<!-- <dependency> <groupId>${netty.groupI }</groupId> <artifactId>netty-buffer</artifactId> 

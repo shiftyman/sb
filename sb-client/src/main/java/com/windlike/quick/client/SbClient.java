@@ -79,7 +79,6 @@ public class SbClient {
 			new SbClient().connect(host, port).start();
 		}else{
 			new SbClient().start();
-			
 		}
 	}
 }

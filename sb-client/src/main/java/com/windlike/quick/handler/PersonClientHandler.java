@@ -1,10 +1,9 @@
 package com.windlike.quick.handler;
 
-import com.windlike.quick.model.Car;
-import com.windlike.quick.model.Person;
-
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+
+import com.windlike.quick.model.Person;
 
 public class PersonClientHandler extends ChannelHandlerAdapter{
 

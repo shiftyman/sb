@@ -26,14 +26,19 @@ public class EsqikEncoder extends MarshallingEncoder{
         out.writeByte(esqikMsg.getHeader().getPriority());
         
         //编码attachement对象
-        int attachSize = esqikMsg.getHeader().getAttachment().size();
-        out.writeInt(attachSize);
-        for(Map.Entry<String, Object> entry : esqikMsg.getHeader().getAttachment().entrySet()){
-            String key = entry.getKey();
-            byte[] keyBytes = key.getBytes("utf-8");
-            out.writeInt(keyBytes.length);//写入key长度
-            out.writeBytes(keyBytes);//写入key
-            super.encode(ctx, entry.getValue(), out);//写入val
+        Map<String, Object> attachment = esqikMsg.getHeader().getAttachment();
+        if(attachment == null){
+            out.writeInt(0);
+        }else{
+            int attachSize = attachment.size();
+            out.writeInt(attachSize);
+            for(Map.Entry<String, Object> entry : esqikMsg.getHeader().getAttachment().entrySet()){
+                String key = entry.getKey();
+                byte[] keyBytes = key.getBytes("utf-8");
+                out.writeInt(keyBytes.length);//写入key长度
+                out.writeBytes(keyBytes);//写入key
+                super.encode(ctx, entry.getValue(), out);//写入val
+            }
         }
         
         //编码body对象

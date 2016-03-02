@@ -28,7 +28,7 @@ public class SbServer {
         ServerBootstrap sbootstrap = new ServerBootstrap();
         sbootstrap.group(bossGroup, workerGroup)
             .channel(NioServerSocketChannel.class)
-            .option(ChannelOption.SO_BACKLOG, 128)
+            .option(ChannelOption.SO_BACKLOG, 256)
             .option(ChannelOption.SO_KEEPALIVE, true)
             .handler(new LoggingHandler(LogLevel.DEBUG))
             .childHandler(new ServerChannelHandlerInitializer());

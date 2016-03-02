@@ -5,7 +5,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 
+import com.windlike.quick.decoder.EsqikDecoder;
 import com.windlike.quick.decoder.MsgPackDecoder;
+import com.windlike.quick.encoder.EsqikEncoder;
 import com.windlike.quick.encoder.MsgPackEncoder;
 import com.windlike.quick.marshalling.MarshallingCodeCFactory;
 
@@ -26,9 +28,14 @@ public class ServerChannelHandlerInitializer extends ChannelInitializer<SocketCh
 //    	    .addLast("car-handler", new CarServerHandler());
     	
     	//测试marshalling
-    	ch.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder())
-    		.addLast(MarshallingCodeCFactory.buildMarshallingEncoder())
-    		.addLast(new PersonServerHandler());
+//    	ch.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder())
+//    		.addLast(MarshallingCodeCFactory.buildMarshallingEncoder())
+//    		.addLast(new PersonServerHandler());
+        
+        //esqik协议
+        ch.pipeline().addLast(new EsqikDecoder(1048576))
+            .addLast(new EsqikEncoder(MarshallingCodeCFactory.buildProvider()))
+            .addLast(new HandshakeServerHandler());
     }
 
 

@@ -8,15 +8,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 
 import java.io.IOException;
 
-import com.windlike.quick.decoder.MsgPackDecoder;
-import com.windlike.quick.encoder.MsgPackEncoder;
-import com.windlike.quick.handler.CarClientHandler;
-import com.windlike.quick.handler.PersonClientHandler;
+import com.windlike.quick.decoder.EsqikDecoder;
+import com.windlike.quick.encoder.EsqikEncoder;
+import com.windlike.quick.handler.HandshakeClientHandler;
 import com.windlike.quick.marshalling.MarshallingCodeCFactory;
 
 public class SbClient {
@@ -53,10 +51,15 @@ public class SbClient {
 //                        .addLast("msgpack-encoder", new MsgPackEncoder())
 //				        .addLast("client-handler", new CarClientHandler());
 					//测试marshalling
-					ch.pipeline()
-						.addLast(MarshallingCodeCFactory.buildMarshallingDecoder())
-						.addLast(MarshallingCodeCFactory.buildMarshallingEncoder())
-						.addLast(new PersonClientHandler());
+//					ch.pipeline()
+//						.addLast(MarshallingCodeCFactory.buildMarshallingDecoder())
+//						.addLast(MarshallingCodeCFactory.buildMarshallingEncoder())
+//						.addLast(new PersonClientHandler());
+				    
+				    //esqik协议
+			        ch.pipeline().addLast(new EsqikDecoder(1048576))
+			            .addLast(new EsqikEncoder(MarshallingCodeCFactory.buildProvider()))
+			            .addLast(new HandshakeClientHandler());
 				        
 				}
 			});

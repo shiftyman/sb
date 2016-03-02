@@ -21,9 +21,13 @@ public class EsqikDecoder extends LengthFieldBasedFrameDecoder{
     
     private Unmarshaller unmarshaller;
     
-    public EsqikDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength) throws IOException {
-        super(maxFrameLength, lengthFieldOffset, lengthFieldLength);
+    public EsqikDecoder(int maxFrameLength) throws IOException {
+        super(maxFrameLength, 4, 4, -8, 0);
         this.unmarshaller = MarshallingCodeCFactory.buildUnMarshaller();
+    }
+    
+    public EsqikDecoder() throws IOException {
+        this(1048576);
     }
 
     @Override

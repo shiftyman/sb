@@ -1,9 +1,12 @@
 package com.windlike.quick.handler;
 
+import java.util.concurrent.TimeUnit;
+
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 
 import com.windlike.quick.decoder.EsqikDecoder;
 import com.windlike.quick.decoder.MsgPackDecoder;
@@ -35,7 +38,9 @@ public class ServerChannelHandlerInitializer extends ChannelInitializer<SocketCh
         //esqik协议
         ch.pipeline().addLast(new EsqikDecoder(1048576))
             .addLast(new EsqikEncoder(MarshallingCodeCFactory.buildProvider()))
-            .addLast(new HandshakeServerHandler());
+            .addLast(new ReadTimeoutHandler(2, TimeUnit.MINUTES))
+            .addLast(new HandshakeServerHandler())
+            .addLast(new HeartbeatServerHandler());
     }
 
 

@@ -15,6 +15,7 @@ import java.io.IOException;
 import com.windlike.quick.decoder.EsqikDecoder;
 import com.windlike.quick.encoder.EsqikEncoder;
 import com.windlike.quick.handler.HandshakeClientHandler;
+import com.windlike.quick.handler.HeartbeatClientHandler;
 import com.windlike.quick.marshalling.MarshallingCodeCFactory;
 
 public class SbClient {
@@ -59,8 +60,8 @@ public class SbClient {
 				    //esqik协议
 			        ch.pipeline().addLast(new EsqikDecoder(1048576))
 			            .addLast(new EsqikEncoder(MarshallingCodeCFactory.buildProvider()))
-			            .addLast(new HandshakeClientHandler());
-				        
+			            .addLast(new HandshakeClientHandler())
+			            .addLast(new HeartbeatClientHandler());
 				}
 			});
 		try {

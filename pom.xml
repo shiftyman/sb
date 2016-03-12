@@ -11,6 +11,20 @@
 		<module>sb-common</module>
 	</modules>
 
+	<repositories>
+		<repository>
+			<id>jprotobuf</id>
+			<name>jprotobuf repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<netty.version>5.0.0.Alpha2</netty.version>
@@ -40,7 +54,34 @@
 			<version>${marshalling.version}</version>
 		</dependency>
 
+		<!-- logger -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.18</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-access</artifactId>
+			<version>1.1.6</version>
+		</dependency>
 
+		<!-- jprotobuf -->
+		<dependency>
+			<groupId>com.baidu</groupId>
+			<artifactId>jprotobuf</artifactId>
+			<version>2.0.1-SNAPSHOT</version>
+		</dependency>
 
 		<!-- <dependency> <groupId>${netty.groupI }</groupId> <artifactId>netty-buffer</artifactId> 
 			<version>${netty.version}</version> </dependency> <dependency> <groupId>io.netty</groupId> 
@@ -51,4 +92,26 @@
 			</dependency> <dependency> <groupId>${netty.groupId}</groupId> <artifactId>netty-handler</artifactId> 
 			<version>${netty.version}</version> </dependency> -->
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.baidu</groupId>
+				<artifactId>jprotobuf-precompile-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+					<filterClassPackage>com.baidu</filterClassPackage>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>precompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

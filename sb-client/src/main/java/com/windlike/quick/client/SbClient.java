@@ -12,6 +12,9 @@ import io.netty.handler.codec.LengthFieldPrepender;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.windlike.quick.decoder.EsqikDecoder;
 import com.windlike.quick.encoder.EsqikEncoder;
 import com.windlike.quick.handler.HandshakeClientHandler;
@@ -19,6 +22,8 @@ import com.windlike.quick.handler.HeartbeatClientHandler;
 import com.windlike.quick.marshalling.MarshallingCodeCFactory;
 
 public class SbClient {
+    private Logger logger = LoggerFactory.getLogger(SbClient.class);
+    
 	private String host = "localhost";
 	
 	private int port = 22520;
@@ -30,7 +35,8 @@ public class SbClient {
 	}
 	
 	public void start(){
-	    System.out.println("client start.");
+	    logger.info("client start.");
+	    
 	    
 		EventLoopGroup loopGroup = new NioEventLoopGroup();
 		Bootstrap bootStrap = new Bootstrap();
@@ -72,7 +78,7 @@ public class SbClient {
 			e.printStackTrace();
 		} finally {
 			loopGroup.shutdownGracefully();
-			System.out.println("client stop.");
+			logger.info("client stop.");
 		}
 	}
 	

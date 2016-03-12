@@ -1,5 +1,8 @@
 package com.windlike.quick.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -12,6 +15,8 @@ import io.netty.handler.logging.LoggingHandler;
 import com.windlike.quick.handler.ServerChannelHandlerInitializer;
 
 public class SbServer {
+    
+    private Logger logger = LoggerFactory.getLogger(SbServer.class);
 
     private int port = 22520;
 
@@ -21,7 +26,7 @@ public class SbServer {
     }
 
     public void start() {
-        System.out.println("sbServer start.");
+        logger.info("sbServer start.");
         
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -41,7 +46,7 @@ public class SbServer {
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
-            System.out.println("sbServer stop.");
+            logger.info("sbServer stop.");
         }
     }
     

@@ -1,9 +1,13 @@
 package com.windlike.quick.protocol.esqik;
 
+import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
+
 public class EsqikMessage {
 
+    @Protobuf
     private EsqikHeader header;
     
+    @Protobuf
     private Object body;
     
     public EsqikMessage(){
